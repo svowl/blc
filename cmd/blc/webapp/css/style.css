@@ -1,0 +1,48 @@
+/* Stopped */
+#processes .process.status-1 .buttons .btn-pause,
+#processes .process.status-1 .buttons .btn-proceed,
+#processes .process.status-1 .buttons .btn-cancel {
+    display: none;
+}
+
+/* In progress */
+#processes .process.status-2 .buttons .btn-pause,
+#processes .process.status-2 .buttons .btn-cancel {
+    display: inline-block;
+}
+#processes .process.status-2 .buttons .btn-proceed {
+    display: none;
+}
+
+/* Paused */
+#processes .process.status-3 .buttons .btn-pause {
+    display: none;
+}
+#processes .process.status-3 .buttons .btn-proceed,
+#processes .process.status-3 .buttons .btn-cancel {
+    display: inline-block;
+}
+
+#startProcess textarea {
+    height: 100px;
+}
+
+ul.messages {
+    min-height: 138px;
+}
+
+#reports.loading > .report,
+#reports.loading > #no-reports {
+    display: none;
+}
+
+#reports.loading > .report,
+#reports.loading > #no-reports,
+.report.loading > .report-content {
+    display: none;
+}
+
+#reports:not(.loading) > .waiting,
+.report:not(.loading) > .waiting {
+    display: none !important;
+}
