@@ -89,8 +89,6 @@ func SaveCSV(data *JSONData) (string, error) {
 // Send send report to specified email
 func Send(cfg conf.SMTP, repData JSONData) error {
 
-	auth := login(cfg.Username, cfg.Password)
-
 	to := []string{cfg.To}
 
 	textBody, err := mailTextBody(repData)
@@ -142,11 +140,49 @@ func Send(cfg conf.SMTP, repData JSONData) error {
 		csvContent +
 		"\r\n" +
 		"--------=_NextPart_000_0001_01D6F248.DF431190--\r\n")
-	err = smtp.SendMail(cfg.Addr, auth, cfg.From, to, msg)
+
+	if cfg.Username != "" {
+		auth := login(cfg.Username, cfg.Password)
+
+		err = smtp.SendMail(cfg.Addr, auth, cfg.From, to, msg)
+		if err != nil {
+			return err
+		}
+		return nil
+	}
+
+
+	r := strings.NewReplacer("\r\n", "", "\r", "", "\n", "", "%0a", "", "%0d", "")
+
+	c, err := smtp.Dial(cfg.Addr)
 	if err != nil {
 		return err
 	}
-	return nil
+	defer c.Close()
+	if err = c.Mail(r.Replace(cfg.From)); err != nil {
+		return err
+	}
+	for i := range to {
+		to[i] = r.Replace(to[i])
+		if err = c.Rcpt(to[i]); err != nil {
+			return err
+		}
+	}
+
+	w, err := c.Data()
+	if err != nil {
+		return err
+	}
+
+	_, err = w.Write([]byte(msg))
+	if err != nil {
+		return err
+	}
+	err = w.Close()
+	if err != nil {
+		return err
+	}
+	return c.Quit()
 }
 
 // mailHTMLBody prepares html body for email

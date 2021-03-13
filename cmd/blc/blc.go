@@ -89,6 +89,13 @@ func main() {
 	if err := http.ListenAndServe(cfg.Server.Addr, router); err != nil {
 		log.Fatal(err)
 	}
+
+	/*
+	// Run HTTPS server
+	if err := http.ListenAndServeTLS(cfg.Server.Addr, "crt/https-server.crt", "crt/https-server.key", router); err != nil {
+		log.Fatal(err)
+	}
+	*/
 }
 
 // processFinish performs final operations after crawling is finished: save report in file and send to email

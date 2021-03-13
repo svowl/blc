@@ -7,7 +7,7 @@ var processes = [];
 var msgConn;
 document.addEventListener('authPassed', (event) => {
     console.log('messages: authPassed event, token: ' + authToken);
-    msgConn = new SocketConnection("ws://" + currentUrl + "/messages/" + authToken, handleMessage);
+    msgConn = new SocketConnection(currentProto + currentUrl + "/messages/" + authToken, handleMessage);
 });
 
 var handleMessage = function (event) {
