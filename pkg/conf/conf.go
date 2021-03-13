@@ -30,6 +30,7 @@ type SMTP struct {
 	Username   string
 	Password   string
 	Encryption string
+	Domain     string
 }
 
 // ScheduleData config

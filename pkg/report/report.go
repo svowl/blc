@@ -121,7 +121,7 @@ func Send(cfg conf.SMTP, repData JSONData) error {
 		"From: <" + cfg.From + ">\r\n" +
 		"Reply-To: <" + cfg.ReplyTo + ">\r\n" +
 		"Date: " + time.Now().Format("Mon, 02 Jan 2006 15:04:05 -0700") + "\r\n" +
-		"Message-ID: <" + time.Now().Format("150405.00000") + "@localhost>\r\n" +
+		"Message-ID: <" + time.Now().Format("150405.00000") + "@" + cfg.Domain + ">\r\n" +
 		"MIME-Version: 1.0\r\n" +
 		"Subject: Broken Links Report\r\n" +
 		"Content-Type: multipart/alternative; boundary=\"------=_NextPart_000_0001_01D6F248.DF431190\"\r\n" +

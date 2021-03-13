@@ -2,7 +2,7 @@ var cmdConn;
 
 document.addEventListener('authPassed', (event) => {
     console.log('cmd: authPassed event, token: ' + authToken);
-    cmdConn = new SocketConnection("ws://localhost:8080/cmd/" + authToken);
+    cmdConn = new SocketConnection("ws://" + currentUrl + "/cmd/" + authToken);
     document.getElementById("cmdStart").addEventListener("click", sendCommand);
 });
 
