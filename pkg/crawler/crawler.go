@@ -268,7 +268,7 @@ func (s *Service) parse(link string, baseLink string, depth int) {
 		return
 	}
 
-	if response.StatusCode > 400 && response.StatusCode != 418 {
+	if response.StatusCode > 400 && response.StatusCode != 418 && response.StatusCode != 429 {
 		s.Errors[link] = ErrorResult{HTTPStatus: response.StatusCode, Error: response.Status, ParentURL: baseLink, depth: depth}
 		s.ChResults <- ScanResult{URL: link, HTTPStatus: response.StatusCode, Error: response.Status, ParentURL: baseLink, ProgressState: s.currentState, ID: s.ID, TotalLinks: len(s.Processed), TotalErrors: len(s.Errors), URLs: s.URLs}
 		return
